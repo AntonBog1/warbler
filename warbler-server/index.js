@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
 const messagesRoutes = require("./routes/messages");
+const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
 
 const PORT = 8081;
 
@@ -14,11 +15,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
-app.use("/api/users/:id/messages", messagesRoutes);
+app.use(
+    "/api/users/:id/messages",
+    loginRequired,
+    ensureCorrectUser,
+    messagesRoutes
+);
 
 // Routes will be here
 
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
     let err = new Error("Not Found");
     err.status = 404;
     next(err);
@@ -26,6 +32,6 @@ app.use(function(req, res, next){
 
 app.use(errorHandler);
 
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log(`Server is live on port ${PORT}`);
 });
