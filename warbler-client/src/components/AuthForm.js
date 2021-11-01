@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 
 export default class AuthForm extends Component {
     constructor(props) {
@@ -16,6 +15,14 @@ export default class AuthForm extends Component {
     handleChange = e => { // using arrow functions to get the correct value of the keyword 'this'
         this.setState({
             [e.target.name]: e.target.value
+        });
+    };
+
+    handleSubmit = e => {
+        e.preventDefault(); // stops page from refreshing 
+        const authType = this.props.signUp ? "signup" : "signin"; // if signup prop is there, signup. Otherwise, signin
+        this.props.onAuth(authType, this.state).then(() => {
+            console.log("it worked!");
         });
     };
 
@@ -67,6 +74,9 @@ export default class AuthForm extends Component {
                                     />
                                 </div>
                             )}
+                            <button type="submit" className="btn btn-primary btn-block btn-lg">
+                                {buttonText}
+                            </button>
                         </form>
                     </div>
                 </div>
