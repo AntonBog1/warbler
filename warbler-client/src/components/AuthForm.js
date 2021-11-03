@@ -21,8 +21,12 @@ export default class AuthForm extends Component {
     handleSubmit = e => {
         e.preventDefault(); // stops page from refreshing 
         const authType = this.props.signUp ? "signup" : "signin"; // if signup prop is there, signup. Otherwise, signin
-        this.props.onAuth(authType, this.state).then(() => {
-            console.log("it worked!");
+        this.props.onAuth(authType, this.state)
+        .then(() => {
+            this.props.history.push("/");
+        })
+        .catch(() => {
+            return;
         });
     };
 
