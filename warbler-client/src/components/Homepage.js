@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MessageTimeline from "./MessageTimeline"
 
 const Homepage = ({ currentUser }) => {
     if (!currentUser.isAuthenticated) { // if user is not logged in, show this
@@ -15,7 +16,7 @@ const Homepage = ({ currentUser }) => {
     }
     return ( // if they are logged in show this 
         <div>
-            <h1>YOU MADE IT!</h1>
+            <MessageTimeline />
         </div>
     );
 };
