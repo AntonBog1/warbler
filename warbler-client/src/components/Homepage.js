@@ -16,7 +16,10 @@ const Homepage = ({ currentUser }) => {
     }
     return ( // if they are logged in show this 
         <div>
-            <MessageTimeline />
+            <MessageTimeline 
+                profileImageUrl={currentUser.user.profileImageUrl} 
+                username={currentUser.user.username} 
+            />
         </div>
     );
 };
